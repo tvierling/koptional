@@ -1,0 +1,5 @@
+.gradle
+.idea/artifacts
+.idea/gradle.xml
+.idea/modules
+build

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.8">
+      <module name="com.example.koptional.jvmMain" target="1.6" />
+      <module name="com.example.koptional.jvmTest" target="1.6" />
+      <module name="koptional.jvmMain" target="1.6" />
+      <module name="koptional.jvmTest" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
