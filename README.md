@@ -421,6 +421,12 @@ for multiplatform Kotlin; it should get cleaned up in the future.
 However, it already works on all Kotlin target platforms, and includes 
 Java interoperability for the JVM target.
 
+## TODO
+
+* add KDoc documentaton
+* provide more robust sample code
+* publish artifacts to repositories
+
 ## Release History
 
 * 0.1
