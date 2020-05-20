@@ -37,7 +37,7 @@ than the runtime) do almost all of the work.
 
 ## Design
 
-`Optional`, as far as the runtimee knows, doesn't exist. The value (or 
+`Optional`, as far as the runtime knows, doesn't exist. The value (or 
 lack of value) contained inside is simply the original object reference, 
 or `null`. When compiled, `Optional` operations basically reduce down to 
 the same operations you'd use on nullable values, inserting null checks 
