@@ -75,10 +75,16 @@ as if they were written that way in the original code.
 
 * Interoperability with Java is tricky. Because of how inline classes 
 work, the final type of an `Optional` is always erased to 
-`java.lang.Object`. This is what shows up in function signatures. (Think 
+`java.lang.Object`. This is what shows up in function signatures. Think 
 of it as generic type erasure, but here it's just erasing the type `T` 
-of the contained value.) Interoperability conversions with 
+of the contained value. Interoperability conversions with 
 `java.util.Optional` are provided to reduce the chance of error.
+
+* In the current implementation, it's actually possible to pass a bare 
+reference from Java to Kotlin and get it treated as `Optional`, but 
+doing so is very risky, as a type mismatch will result in a 
+`ClassCastException` at some **future** point. So avoid trying to call
+functions with `Optional` as a parameter from Java.
 
 * When passing an `Optional` to a function accepting a `Set`, 
 `Collection`, or `Iterable`, the Kotlin compiler automatically generates 
@@ -425,6 +431,7 @@ Java interoperability for the JVM target.
 
 * add KDoc documentaton
 * provide more robust sample code
+* document Java interop better
 * publish artifacts to repositories
 
 ## Release History
