@@ -97,6 +97,8 @@ case is highly optimized on the JVM, and differs from
 ### Construction and variable assignment
 
 ```kotlin
+import org.duh.koptional.*
+
 // Java style construction
 
 val empty = Optional.empty()              // Optional<Nothing>
@@ -347,9 +349,12 @@ fun filterExample(opt: Optional<Foo>, something: Foo) {
 
     // returns Optional<Bar> if value is of type Bar, None if not
     val barTyped = opt.filterIsInstance<Bar>()
-    
+
+    // Kotlin's equivalent for bare reference, returning null if not
+    val somethingTyped = something as? Bar
+
     // this is a no-op; if it's non-empty it's also nonnull
-    val useless = opt.filterNotNull()
+    val sameAsOpt = opt.filterNotNull()
 }
 
 // mapping operations, all the below return Optional<String>
