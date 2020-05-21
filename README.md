@@ -403,21 +403,29 @@ fun extractExample(opt: Optional<Foo>, nullableFoo: Foo?, realFoo: Foo) {
     val foocollthrow = opt.single()  // type Foo, throws NoSuchElementException if empty
 
     // Java style extraction
-    val fooelse = opt.orElse(nullableFoo) // type Foo?
-    val fooelse2 = opt.orElse(null)       // type Foo?
-    val fooelse3 = opt.orElse(realFoo)    // type Foo? (NOTE: nullable!)
-    val fooelse4 = opt.orElseThrow()      // type Foo, throws NoSuchElementException if empty
-    val fooget = opt.get()                // type Foo, throws NoSuchElementException if empty
+    val fooelse = opt.orElse(nullableFoo)     // type Foo?
+    val fooelse2 = opt.orElse(null)           // type Foo?
+    val fooelse3 = opt.orElse(realFoo)        // type Foo?
+    val fooelse4 = opt.orElseNotNull(realFoo) // type Foo (not null)
+    val fooelse5 = opt.orElseThrow()          // type Foo, throws NoSuchElementException if empty
+    val fooget = opt.get()                    // type Foo, throws NoSuchElementException if empty
 
     // Java style extraction with supplier lambda
-    // this is the safest form to avoid nullability and exceptions
-    val foosup = opt.orElseGet { realFoo } // type Foo
-    val foosup2 = opt.orElseGet { Foo() }  // type Foo
+    val foosup = opt.orElseGet { null }          // type Foo?
+    val foosup2 = opt.orElseGet { realFoo }      // type Foo?
+    val foosup3 = opt.orElseGetNotNull { Foo() } // type Foo (not null)
 
     // Java style with a custom exception supplier
     val fooexc = opt.orElseThrow { MyException("oops I'm empty!") } // type Foo
 }
 ```
+
+While it is possible to provide an implementation of `orElse` which 
+detects null or non-null arguments and returns the proper type (see 
+[KT-39107](https://youtrack.jetbrains.com/issue/KT-39107) for a related 
+issue), type inference cannot do the same for `orElseGet` right now. So 
+instead, I chose to implement `orElseNotNull` and `orElseGetNotNull` 
+method names. This may change in the future.
 
 ## Development setup
 

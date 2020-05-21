@@ -29,6 +29,8 @@
 
 package org.duh.koptional
 
+import kotlin.jvm.JvmName
+
 /**
  * A container that indicates whether a value is present or absent.
  */
@@ -423,7 +425,12 @@ inline class Optional<out T : Any>
 
     inline fun orElse(other: @UnsafeVariance T?): T? = (value as T?) ?: other
 
-    inline fun orElseGet(alternative: () -> @UnsafeVariance T): T =
+    inline fun orElseNotNull(other: @UnsafeVariance T): T = (value as T?) ?: other
+
+    fun orElseGet(alternative: () -> @UnsafeVariance T?): T? =
+        if (value != null) (value as T) else alternative()
+
+    fun orElseGetNotNull(alternative: () -> @UnsafeVariance T): T =
         if (value != null) (value as T) else alternative()
 
     fun orElseThrow(): T = (value as T?) ?: throw NoSuchElementException()

@@ -672,11 +672,26 @@ class OptionalTests {
         assertFailsWith<OptError> { no.or { throw OptError() } }
 
         assertGetNullFunc { orElse(null) }
+
+        val nullableInt: Int? = 789
+
+        assertEquals(123, o.orElse(nullableInt))
         assertEquals(123, o.orElse(456))
+        assertEquals(789, no.orElse(nullableInt))
         assertEquals(456, no.orElse(456))
 
+        assertEquals(123, o.orElseNotNull(456))
+        assertEquals(456, no.orElseNotNull(456))
+
         assertEquals(123, o.orElseGet { throw OptError() })
+        assertNull(no.orElseGet { null })
         assertEquals(456, no.orElseGet { 456 })
+        assertEquals(789, no.orElseGet { nullableInt })
+        assertFailsWith<OptError> { no.orElseGet { throw OptError() } }
+
+        assertEquals(123, o.orElseGetNotNull { throw OptError() })
+        assertEquals(456, no.orElseGetNotNull { 456 })
+        assertEquals(789, no.orElseGet { nullableInt })
         assertFailsWith<OptError> { no.orElseGet { throw OptError() } }
 
         assertGetFunc { orElseThrow() }
